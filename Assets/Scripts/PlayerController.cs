@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
 
 	public float speed;
   private Rigidbody rb;
+  public int coins;
 
   // Use this for initialization
   void Start()
@@ -29,4 +30,14 @@ public class PlayerController : MonoBehaviour
 
     rb.AddForce(this.transform.right * moveHorizontal * speed);
   }
+
+  void OnTriggerEnter(Collider other) 
+    {
+        if (other.gameObject.CompareTag ("Pick Up"))
+        {
+            other.gameObject.SetActive (false);
+            coins++;
+        }
+    }
+
 }
