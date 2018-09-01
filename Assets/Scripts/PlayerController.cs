@@ -6,15 +6,16 @@ public class PlayerController : MonoBehaviour
 {
 
 	public float speed;
-  private Rigidbody rb;
+  public Rigidbody rb;
+  public GameObject cube;
   public int coins;
 
-  // Use this for initialization
+  private Vector3 cubeOffset;
+
   void Start()
   {
-    rb = GetComponent<Rigidbody>();
+    cubeOffset = cube.transform.position - rb.transform.position;
   }
-
   // Update is called once per frame
   void Update()
   {
@@ -32,7 +33,12 @@ public class PlayerController : MonoBehaviour
     // rb.AddForce(this.transform.right * moveHorizontal * speed);
   }
 
-  void OnTriggerEnter(Collider other) 
+  void LateUpdate()
+  {
+    cube.transform.position = rb.transform.position + cubeOffset;
+  }
+
+  public void OnChildTriggerEnter(Collider other) 
     {
         if (other.gameObject.CompareTag ("Pick Up"))
         {
